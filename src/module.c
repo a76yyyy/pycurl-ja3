@@ -94,7 +94,7 @@ do_global_init(PyObject *dummy, PyObject *args)
 
 
 PYCURL_INTERNAL PyObject *
-do_global_cleanup(PyObject *dummy)
+do_global_cleanup(PyObject *dummy, PyObject *Py_UNUSED(ignored))
 {
     UNUSED(dummy);
     curl_global_cleanup();
@@ -974,6 +974,9 @@ initpycurl(void)
     insint_c(d, "PROXY_SSLKEYTYPE", CURLOPT_PROXY_SSLKEYTYPE);
     insint_c(d, "PROXY_SSL_VERIFYPEER", CURLOPT_PROXY_SSL_VERIFYPEER);
     insint_c(d, "PROXY_SSL_VERIFYHOST", CURLOPT_PROXY_SSL_VERIFYHOST);
+#endif
+#if LIBCURL_VERSION_NUM >= MAKE_LIBCURL_VERSION(7, 55, 0)
+    insint_c(d, "REQUEST_TARGET", CURLOPT_REQUEST_TARGET);
 #endif
     insint_c(d, "COPYPOSTFIELDS", CURLOPT_COPYPOSTFIELDS);
     insint_c(d, "SSH_HOST_PUBLIC_KEY_MD5", CURLOPT_SSH_HOST_PUBLIC_KEY_MD5);
